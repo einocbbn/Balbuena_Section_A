@@ -1,0 +1,712 @@
+/*homepage*/
+
+:root {
+    --brown: #964B00;
+    --cream: #EFC496;
+    --white: #FFFFFF;
+    --black: #111111;
+    --green: #008000;
+    --yellow: #FFD21F;
+    --container: 1180px;
+    --heading-font: "League Spartan", Arial, sans-serif;
+    --body-font: Arial, Helvetica, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--body-font);
+    color: var(--black);
+    background: var(--cream);
+    line-height: 1.5;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+    width: min(92%, var(--container));
+    margin-inline: auto;
+}
+
+/* BRAND HEADER */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand img {
+    width: 80px;
+    height: 65px;
+    object-fit: contain;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1;
+}
+
+.brand-name {
+    font-family: var(--heading-font);
+    font-size: 25px;
+    font-weight: 800;
+    color: var(--brown);
+    letter-spacing: 0.5px;
+}
+
+.brand-subtitle {
+    font-family: var(--body-font);
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--brown);
+}
+
+/* ---------- HEADER ---------- */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--white);
+    box-shadow: 0 2px 10px #964b00;
+}
+
+.nav-wrap {
+    min-height: 84px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(18px, 3vw, 38px);
+    font-family: var(--heading-font);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.main-nav a {
+    position: relative;
+    padding: 30px 0 27px;
+    transition: color .2s ease;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+    color: var(--brown);
+}
+
+.main-nav a.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 19px;
+    height: 2px;
+    background: var(--brown);
+}
+
+.nav-toggle,
+.nav-toggle-label {
+    display: none;
+}
+
+/* ---------- HERO ---------- */
+
+.hero {
+    position: relative;
+    min-height: 600px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background: var(--cream);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.eyebrow {
+    margin-bottom: 8px;
+    color: rgba(150, 75, 0, .75);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.hero h1,
+.section-heading h2,
+.mission-copy h2,
+.hours-section h2,
+footer h3 {
+    font-family: var(--heading-font);
+    font-weight: 800;
+}
+
+.hero h1 {
+    color: var(--brown);
+    font-size: clamp(55px, 7vw, 92px);
+    line-height: .90;
+    letter-spacing: -2px;
+}
+
+.hero-subtitle {
+    color: var(--brown);
+    font-size: clamp(20px, 2.2vw, 30px);
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.tagline {
+    color: var(--brown);
+    margin-top: 15px;
+    font-family: var(--heading-font);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.hero-actions,
+.center-action {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+}
+
+.hero-actions {
+    margin-top: 30px;
+}
+
+.btn {
+    min-width: 145px;
+    padding: 11px 25px;
+    border-radius: 9px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--heading-font);
+    font-size: 14px;
+    font-weight: 800;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,.16);
+    background: var(--white);
+    color: var(--brown);
+}
+
+.btn-viewall:hover {
+    border: 1.5px solid var(--white);
+    color: var(--white);
+    background: transparent;
+}
+
+.btn-ordernow {
+    background: var(--brown);
+    color: var(--white);
+}
+
+.btn-menu {
+    background: var(--brown);
+    color: var(--white);
+}
+
+.btn-viewall {
+    background: var(--white);
+    color: var(--brown);
+}
+
+.btn-outline {
+    border: 1.5px solid var(--white);
+    color: var(--white);
+    background: transparent;
+}
+
+.hero-food {
+    position: absolute;
+    z-index: 2;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+    filter: drop-shadow(0 15px 12px rgba(0,0,0,.12));
+}
+
+.hero-burger {
+    width: 470px;
+    left: -90px;
+    top: -20px;
+    z-index: 2;
+}
+
+.hero-quesadilla {
+    width: 470px;
+    right: -80px;
+    top: -75px;
+    transform: rotate(4deg);
+    z-index: 2;
+}
+
+.hero-fries {
+    position: absolute;
+    bottom: -150px;
+    z-index:  1;
+    width: 350px;
+    height: auto;
+    object-fit: contain;
+    opacity: .95;
+    pointer-events: none;
+    user-select: none;
+}
+
+.fries-left {
+    left: 300px;
+    transform: rotate(-10deg);
+}
+
+.fries-right {
+    right: 300px;
+    transform: rotate(10deg);
+}
+
+/* ---------- MENU ---------- */
+
+.menu-section {
+    background: var(--brown);
+    color: var(--white);
+    padding: 62px 0 105px;
+}
+
+.section-heading {
+    margin-bottom: 20px;
+}
+
+.section-heading h2 {
+    font-size: clamp(31px, 4vw, 46px);
+    line-height: 1;
+}
+
+/* .section-heading span {
+    display: block;
+    width: 48px;
+    height: 5px;
+    background: var(--cream);
+    margin-top: 10px;
+    border-radius: 20px;
+} */
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.product-card {
+    text-align: center;
+}
+
+.product-image {
+    background: var(--cream);
+    border: 5px solid var(--cream);
+    border-radius: 12px;
+    padding: 0;
+    overflow: hidden;
+    aspect-ratio: 1 / 1.18;
+    box-shadow: 0 8px 18px rgba(0,0,0,.14);
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-card h3 {
+    font-family: var(--heading-font);
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 11px;
+    letter-spacing: .2px;
+}
+
+.center-action {
+    margin: 38px 0 82px;
+}
+
+.extras-heading {
+    margin-top: 10px;
+}
+
+/* ---------- MISSION ---------- */
+
+.mission-section {
+    background: var(--brown);
+    color: var(--white);
+    padding: 20px 0 90px;
+}
+
+.mission-wrap {
+    display: grid;
+    grid-template-columns: 1fr .9fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.small-label {
+    font-family: var(--heading-font);
+    font-weight: 700;
+    letter-spacing: 3px;
+    font-size: 13px;
+    margin-bottom: 9px;
+    opacity: .8;
+}
+
+.mission-copy h2 {
+    font-size: clamp(40px, 5vw, 62px);
+    line-height: 1;
+    margin-bottom: 25px;
+}
+
+.mission-copy > p:not(.small-label) {
+    max-width: 570px;
+    font-size: 19px;
+    line-height: 1.55;
+}
+
+.mission-copy .btn {
+    margin-top: 34px;
+}
+
+.mission-image {
+    border: 2px solid rgba(255,255,255,.75);
+    border-radius: 13px;
+    overflow: hidden;
+}
+
+.mission-image img {
+    width: 100%;
+    aspect-ratio: .9 / 1;
+    object-fit: cover;
+}
+
+/* ---------- HOURS ---------- */
+
+.hours-section {
+    background: var(--cream);
+    color: var(--brown);
+    padding: 65px 0 70px;
+}
+
+.store-banner {
+    width: 92%;
+    height: 185px;
+    margin: 0 auto 25px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.hours-section h2 {
+    font-size: clamp(38px, 5vw, 55px);
+    margin-bottom: 28px;
+}
+
+.hours {
+    max-width: 850px;
+    margin-inline: auto;
+    display: grid;
+    gap: 15px;
+    font-size: clamp(20px, 2.2vw, 29px);
+}
+
+.hours div {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 30px;
+}
+
+.hours strong {
+    font-weight: 500;
+}
+
+/* ---------- FOOTER ---------- */
+
+footer {
+    background: var(--brown);
+    color: var(--white);
+    padding: 42px 0 20px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: .8fr 1.4fr .8fr;
+    gap: 60px;
+}
+
+footer h3 {
+    font-size: 23px;
+    margin-bottom: 10px;
+}
+
+footer a,
+footer p {
+    font-size: 16px;
+    line-height: 1.55;
+}
+
+footer a:hover {
+    color: var(--cream);
+}
+
+footer > .copyright {
+    text-align: center;
+    margin-top: 45px;
+    font-size: 11px;
+    opacity: .9;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 900px) {
+    .main-nav {
+        gap: 16px;
+        font-size: 12px;
+    }
+
+    .hero-burger {
+        width: 350px;
+        left: -70px;
+        top: 100px;
+    }
+
+    .hero-quesadilla {
+        width: 190px;
+        right: -25px;
+    }
+
+    .product-grid {
+        gap: 18px;
+    }
+
+    .mission-wrap {
+        gap: 40px;
+    }
+}
+
+@media (max-width: 700px) {
+    .nav-wrap {
+        min-height: 72px;
+    }
+
+    .brand img {
+        height: 55px;
+    }
+
+    .nav-toggle-label {
+        display: flex;
+        width: 32px;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+    }
+
+    .nav-toggle-label span {
+        height: 3px;
+        background: var(--brown);
+        border-radius: 4px;
+    }
+
+    .main-nav {
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        display: none;
+        padding: 15px 6%;
+        background: var(--white);
+        border-top: 1px solid #eee;
+        box-shadow: 0 8px 15px rgba(0,0,0,.08);
+    }
+
+    .main-nav a {
+        display: block;
+        padding: 11px 0;
+    }
+
+    .main-nav a.active::after {
+        display: none;
+    }
+
+    .nav-toggle:checked ~ .main-nav {
+        display: block;
+    }
+
+    .hero {
+        min-height: 510px;
+    }
+
+    .hero-content {
+        padding-top: 80px;
+    }
+
+    .hero-food {
+        opacity: .9;
+    }
+
+    .hero-burger {
+        width: 145px;
+        left: -35px;
+        top: 35px;
+    }
+
+    .hero-quesadilla {
+        width: 155px;
+        right: -35px;
+        top: 50px;
+    }
+
+    .hero-fries {
+    width: 150px;
+    bottom: -20px;
+    }
+
+    .fries-left {
+        left: -20px;
+    }
+
+    .fries-right {
+        left: -20px;
+    }
+
+    .hero h1 {
+        font-size: 54px;
+    }
+
+    .hero-subtitle {
+        font-size: 18px;
+    }
+
+    .hero-actions {
+        gap: 12px;
+    }
+
+    .btn {
+        min-width: 125px;
+        font-size: 12px;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px 16px;
+    }
+
+    .menu-section {
+        padding-bottom: 65px;
+    }
+
+    .center-action {
+        margin-bottom: 55px;
+    }
+
+    .mission-wrap {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .mission-copy > p:not(.small-label) {
+        font-size: 16px;
+    }
+
+    .store-banner {
+        width: 100%;
+        height: 130px;
+    }
+
+    .hours div {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 35px;
+    }
+
+    .phone {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 430px) {
+    .product-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .product-card h3 {
+        font-size: 10px;
+    }
+
+    .hero {
+        min-height: 470px;
+    }
+
+    .hero-burger {
+        width: 115px;
+        left: -30px;
+    }
+
+    .hero-quesadilla {
+        width: 125px;
+        right: -30px;
+    }
+ 
+    .hero-fries {
+        width: 120px;
+        bottom: -15px;
+    }
+
+    .eyebrow {
+        font-size: 9px;
+        letter-spacing: 2px;
+    }
+
+    .hero h1 {
+        font-size: 45px;
+    }
+
+    .tagline {
+        font-size: 10px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .phone {
+        grid-column: auto;
+    }
+}
