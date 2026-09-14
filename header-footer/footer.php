@@ -2,17 +2,20 @@
     <div class="container footer-grid">
         <div class="social-links">
             <h3>FOLLOW</h3>
+
             <a href="https://www.instagram.com/coniechiwa._/" target="_blank" rel="noopener noreferrer">
                 <img src="<?= $basePath ?>assets/instagram.png" alt="Instagram">
-                Instagram
+                <span>Instagram</span>
             </a>
+
             <a href="https://www.facebook.com/jaihshshs" target="_blank" rel="noopener noreferrer">
                 <img src="<?= $basePath ?>assets/facebook.png" alt="Facebook">
-                Facebook
+                <span>Facebook</span>
             </a>
+
             <a href="https://wa.me/639618049468" target="_blank" rel="noopener noreferrer">
                 <img src="<?= $basePath ?>assets/whatsapp.png" alt="WhatsApp">
-                WhatsApp
+                <span>WhatsApp</span>
             </a>
         </div>
 
