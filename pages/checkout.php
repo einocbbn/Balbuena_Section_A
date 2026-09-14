@@ -1,6 +1,8 @@
 <?php
-session_start();
+require_once '../database/customer_auth.php';
 require_once '../database/config.php';
+require_once '../database/validation.php';
+
 
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
@@ -63,16 +65,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $address = trim($_POST['address'] ?? '');
     $notes = trim($_POST['notes'] ?? '');
 
-    if ($customerName === '') {
-        $error = 'Please enter your name.';
-    } elseif ($contactNumber === '') {
-        $error = 'Please enter your contact number.';
-    } elseif ($email === '') {
-        $error = 'Please enter your email address.';
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error = 'Please enter a valid email address.';
-    } elseif ($address === '') {
-        $error = 'Please enter your address.';
+    $validationErrors = validateCheckout(
+    $customerName,
+    $contactNumber,
+    $email,
+    $address,
+    $notes
+    );
+
+    if (!empty($validationErrors)) {
+        $error = $validationErrors[0];
     }
 
     if ($error === '') {
@@ -156,6 +158,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../header-footer/footer.css">
     <link rel="stylesheet" href="checkout.css">
 </head>
+
+<script>
+const contactNumber = document.getElementById('contact_number');
+const contactError = document.getElementById('contact-error');
+
+contactNumber.addEventListener('input', function () {
+    const value = this.value;
+
+    if (/[^0-9]/.test(value)) {
+        contactError.textContent = 'Invalid input. Contact number must contain numbers only.';
+        this.setCustomValidity('Contact number must contain numbers only.');
+    } else if (value !== '' && !value.startsWith('09')) {
+        contactError.textContent = 'Invalid input. Contact number must start with 09.';
+        this.setCustomValidity('Contact number must start with 09.');
+    } else if (value.length > 0 && value.length < 11) {
+        contactError.textContent = 'Contact number must be exactly 11 digits.';
+        this.setCustomValidity('Contact number must be exactly 11 digits.');
+    } else if (value.length === 11) {
+        contactError.textContent = '';
+        this.setCustomValidity('');
+    } else {
+        contactError.textContent = '';
+        this.setCustomValidity('');
+    }
+});
+</script>
+
+
 <body>
 
 <?php include '../header-footer/header.php'; ?>
@@ -202,6 +232,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 id="contact_number"
                                 name="contact_number"
                                 value="<?= htmlspecialchars($_POST['contact_number'] ?? '') ?>"
+                                maxlength="11"
+                                inputmode="numeric"
                                 required
                             >
                         </div>

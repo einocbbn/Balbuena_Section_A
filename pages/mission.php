@@ -1,3 +1,7 @@
+<?php
+require_once '../database/customer_auth.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

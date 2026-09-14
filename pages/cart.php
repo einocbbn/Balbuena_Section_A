@@ -1,6 +1,7 @@
 <?php
-session_start();
+require_once '../database/customer_auth.php';
 require_once '../database/config.php';
+
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }

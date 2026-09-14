@@ -197,3 +197,31 @@
         font-size: 30px;
     }
 }
+
+.checkout-error {
+    background: #f8d7da;
+    color: #842029;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.contact-success {
+    background: #d1e7dd;
+    color: #0f5132;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.validation-error {
+    display: block;
+    min-height: 18px;
+    margin-top: 6px;
+    color: #b02a37;
+    font-size: 13px;
+}

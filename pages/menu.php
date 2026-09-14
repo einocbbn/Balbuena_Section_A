@@ -1,13 +1,14 @@
 <?php
-session_start();
+require_once '../database/customer_auth.php';
 require_once '../database/config.php';
 
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = [];
-}
-
 $categories = ['BURGERS', 'QUESADILLAS', 'EXTRAS'];
-$products = [];
+
+$cartCount = 0;
+
+if (isset($_SESSION['cart'])) {
+    $cartCount = array_sum($_SESSION['cart']);
+}
 
 foreach ($categories as $category) {
     $stmt = $pdo->prepare("

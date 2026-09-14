@@ -41,6 +41,8 @@ if (!empty($_SESSION['cart'])) {
                 HOME
             </a>
 
+            <?php if (isset($_SESSION['customer_id'])): ?>
+
             <a href="<?= $basePath ?>pages/menu.php"
                class="<?= $currentPage == 'menu.php' ? 'active' : '' ?>">
                 MENU
@@ -67,6 +69,24 @@ if (!empty($_SESSION['cart'])) {
                 <span class="cart-count"><?= $cartCount ?></span>
             </a>
 
+            <a href="<?= $basePath ?>pages/logout.php">
+            LOGOUT
+            </a>
+
+            <?php else: ?>
+
+                <a href="<?= $basePath ?>pages/login.php"
+                class="<?= $currentPage == 'login.php' ? 'active' : '' ?>">
+                    LOGIN
+                </a>
+
+                <a href="<?= $basePath ?>pages/register.php"
+                class="<?= $currentPage == 'register.php' ? 'active' : '' ?>">
+                    REGISTER
+                </a>
+
+            <?php endif; ?>
+        
         </nav>
 
     </div>
