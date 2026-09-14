@@ -69,6 +69,11 @@ if (!empty($_SESSION['cart'])) {
                 <span class="cart-count"><?= $cartCount ?></span>
             </a>
 
+            <a href="<?= $basePath ?>pages/orders.php"
+            class="<?= $currentPage == 'orders.php' ? 'active' : '' ?>">
+                MY ORDERS
+            </a>
+
             <a href="<?= $basePath ?>pages/logout.php">
             LOGOUT
             </a>

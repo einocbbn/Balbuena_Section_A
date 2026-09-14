@@ -1,0 +1,217 @@
+.orders-page {
+    min-height: 70vh;
+    padding: 70px 0 90px;
+    background: var(--cream);
+}
+
+.orders-container {
+    width: min(1100px, 90%);
+    margin: 0 auto;
+}
+
+.orders-header {
+    margin-bottom: 35px;
+}
+
+.orders-eyebrow {
+    margin: 0 0 8px;
+    color: var(--brown);
+    font-family: var(--heading-font);
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.orders-header h1 {
+    margin: 0;
+    color: var(--brown);
+    font-family: var(--heading-font);
+    font-size: clamp(55px, 7vw, 92px);
+    font-weight: 800;
+    line-height: .9;
+    letter-spacing: -2px;
+}
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.order-card {
+    padding: 28px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(17, 17, 17, .08);
+}
+
+.order-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(17, 17, 17, .1);
+}
+
+.order-label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--brown);
+    font-family: var(--heading-font);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .8px;
+}
+
+.order-card-header h2 {
+    margin: 0;
+    color: var(--black);
+    font-family: var(--heading-font);
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.order-status {
+    padding: 9px 14px;
+    border: 1px solid var(--brown);
+    border-radius: 6px;
+    color: var(--brown);
+    background: var(--white);
+    font-family: var(--heading-font);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+}
+
+.order-card-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 22px 0;
+}
+
+.order-card-info div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.order-card-info span {
+    color: var(--brown);
+    font-family: var(--heading-font);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .7px;
+}
+
+.order-card-info strong {
+    color: var(--black);
+    font-family: var(--heading-font);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.order-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(17, 17, 17, .1);
+}
+
+.order-card-footer > span {
+    color: #777;
+    font-size: 13px;
+}
+
+.order-card-footer > span strong {
+    color: var(--brown);
+    font-family: var(--heading-font);
+    font-weight: 800;
+}
+
+.orders-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 12px 20px;
+    border: 2px solid var(--brown);
+    border-radius: 6px;
+    background: var(--brown);
+    color: var(--white);
+    font-family: var(--heading-font);
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+    letter-spacing: .4px;
+    transition: .2s ease;
+}
+
+.orders-btn:hover {
+    background: transparent;
+    color: var(--brown);
+}
+
+.orders-empty {
+    padding: 60px 30px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(17, 17, 17, .08);
+    text-align: center;
+}
+
+.orders-empty h2 {
+    margin: 0 0 10px;
+    color: var(--brown);
+    font-family: var(--heading-font);
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.orders-empty p {
+    margin: 0 0 25px;
+    color: #666;
+    font-size: 15px;
+}
+
+.orders-error {
+    padding: 18px 20px;
+    border: 1px solid #d8b7b7;
+    border-radius: 8px;
+    background: #fff4f4;
+    color: #8b0000;
+    font-size: 14px;
+}
+
+@media (max-width: 700px) {
+    .orders-page {
+        padding: 50px 0 70px;
+    }
+
+    .order-card {
+        padding: 22px;
+    }
+
+    .order-card-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .order-card-info {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .order-card-footer {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .orders-btn {
+        width: 100%;
+    }
+}

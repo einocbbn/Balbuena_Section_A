@@ -81,24 +81,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $pdo->beginTransaction();
 
-            $orderStmt = $pdo->prepare("
-                INSERT INTO orders (
-                    customer_name,
-                    contact_number,
-                    email,
-                    address,
-                    notes,
-                    total_amount,
-                    status
-                ) VALUES (?, ?, ?, ?, ?, ?, 'Pending')
+            $stmt = $pdo->prepare("
+                INSERT INTO orders
+                (customer_id, customer_name, contact_number, email, address, notes, total_amount, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, 'Pending')
             ");
 
-            $orderStmt->execute([
+            $stmt->execute([
+                $_SESSION['customer_id'],
                 $customerName,
                 $contactNumber,
                 $email,
                 $address,
-                $notes !== '' ? $notes : null,
+                $notes,
                 $cartTotal
             ]);
 
