@@ -157,3 +157,25 @@
         display: flex;
     }
 }
+
+.cart-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.cart-count {
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: var(--brown, #964B00);
+    color: var(--white, #ffffff);
+    font-family: var(--heading-font, Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1;
+}

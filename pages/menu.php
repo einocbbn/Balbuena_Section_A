@@ -1,4 +1,25 @@
 <?php
+session_start();
+require_once '../database/config.php';
+
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
+$categories = ['BURGERS', 'QUESADILLAS', 'EXTRAS'];
+$products = [];
+
+foreach ($categories as $category) {
+    $stmt = $pdo->prepare("
+        SELECT id, name, description, price, image, category, status
+        FROM products
+        WHERE category = ? AND status = 'Available'
+        ORDER BY id ASC
+    ");
+    $stmt->execute([$category]);
+    $products[$category] = $stmt->fetchAll();
+}
+
 require_once '../database/config.php';
 $categories = ['BURGERS', 'QUESADILLAS', 'EXTRAS'];
 $products = [];
@@ -13,6 +34,7 @@ foreach ($categories as $category) {
     $products[$category] = $stmt->fetchAll();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,6 +75,16 @@ foreach ($categories as $category) {
                                         <h3><?= htmlspecialchars($product['name']) ?></h3>
                                         <p><?= htmlspecialchars($product['description']) ?></p>
                                         <span class="menu-price">₱<?= number_format((float)$product['price'], 2) ?></span>
+                                        <div class="menu-action">
+                                            <form method="POST" action="cart.php">
+                                                <input type="hidden" name="action" value="add">
+                                                <input type="hidden" name="product_id" value="<?= (int)$product['id'] ?>">
+
+                                                <button type="submit" class="menu-btn">
+                                                    ADD TO CART
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </article>
                             <?php endforeach; ?>
