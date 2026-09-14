@@ -1,3 +1,18 @@
+<?php
+require_once '../database/config.php';
+$categories = ['BURGERS', 'QUESADILLAS', 'EXTRAS'];
+$products = [];
+foreach ($categories as $category) {
+    $stmt = $pdo->prepare("
+        SELECT id, name, description, price, image, category, status
+        FROM products
+        WHERE category = ? AND status = 'Available'
+        ORDER BY id ASC
+    ");
+    $stmt->execute([$category]);
+    $products[$category] = $stmt->fetchAll();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,118 +33,35 @@
     <section class="menu-page">
         <div class="container">
             <div class="menu-title">
-                <p class="menu-eyebrow"> BBN BITES</p>
+                <p class="menu-eyebrow">BBN BITES</p>
                 <h1>OUR MENU</h1>
                 <p>BURGERS &amp; QUESADILLAS</p>
             </div>
-            <section class="menu-category">
-                <div class="menu-category-heading">
-                    <h2>BURGERS</h2>
-                </div>
-                <div class="menu-grid">
-                    <article class="menu-card">
-                        <div class="menu-image">
-                            <img src="../assets/biggie-burger.jpg" alt="Biggie Burger">
-                        </div>
-                        <div class="menu-info">
-                            <h3> BIGGIE BURGER </h3>
-                            <p> A delicious and satisfying burger packed with flavor. </p>
-                            <span class="menu-price"> ₱--- </span>
-                        </div>
-                    </article>
-                    <!-- BACON BURGER -->
-                    <article class="menu-card">
-                        <div class="menu-image">
-                            <img src="../assets/bacon-burger.jpg" alt="Bacon Burger">
-                        </div>
-                        <div class="menu-info">
-                            <h3>BACON BURGER</h3>
-                            <p>A flavorful burger topped with delicious crispy bacon.</p>
-                            <span class="menu-price">₱---</span>
-                        </div>
-                    </article>
-                </div>
-            </section>
-            <section class="menu-category">
-                <div class="menu-category-heading">
-                    <h2>QUESADILLAS</h2>
-                </div>
-                <div class="menu-grid">
-                    <!-- CLASSIC QUESADILLA -->
-                    <article class="menu-card">
-                        <div class="menu-image">
-                            <img src="../assets/classic-quesadilla.jpg" alt="Classic Quesadilla">
-                        </div>
-                        <div class="menu-info">
-                            <h3>CLASSIC QUESADILLA</h3>
-                            <p>A classic cheesy quesadilla made for every bite.</p>
-                            <span class="menu-price">₱---</span>
-                        </div>
-                    </article>
-                    <!-- SPINACH CHICKEN QUESADILLA -->
-                    <article class="menu-card">
-                        <div class="menu-image">
-                            <img src="../assets/spinach-chicken-quesadilla.jpg" alt="Spinach Chicken Quesadilla">
-                        </div>
-                        <div class="menu-info">
-                            <h3>SPINACH CHICKEN QUESADILLA</h3>
-                            <p>A savory combination of chicken, spinach and melted cheese.</p>
-                            <span class="menu-price">₱---</span>
-                        </div>
-                    </article>
-                </div>
-            </section>
-            <section class="menu-category extras-category">
-                <div class="menu-category-heading">
-                    <h2>EXTRAS</h2>
-                </div>
-                <div class="menu-grid">
-                    <!-- LUMPIANG SHANGHAI -->
-                    <article class="menu-card">
-                        <div class="menu-image">
-                            <img src="../assets/lumpiang-shanghai.jpg" alt="Lumpiang Shanghai">
-                        </div>
-                        <div class="menu-info">
-                            <h3>LUMPIANG SHANGHAI</h3>
-                            <p>Crispy and delicious lumpiang shanghai.</p>
-                            <span class="menu-price">₱---</span>
-                        </div>
-                    </article>
-                    <!-- CHICKSILOG -->
-                    <article class="menu-card">
-                        <div class="menu-image">
-                            <img src="../assets/chicksilog.jpg" alt="Chicksilog">
-                        </div>
-                        <div class="menu-info">
-                            <h3>CHICKSILOG</h3>
-                            <p>A satisfying Filipino-style chicken silog meal.</p>
-                            <span class="menu-price">₱---</span>
-                        </div>
-                    </article>
-                    <!-- LIEMPOSILOG -->
-                    <article class="menu-card">
-                        <div class="menu-image">
-                            <img src="../assets/liemposilog.jpg" alt="Liempo Silog">
-                        </div>
-                        <div class="menu-info">
-                            <h3>LIEMPOSILOG</h3>
-                            <p>Flavorful liempo served with a classic silog meal.</p>
-                            <span class="menu-price">₱---</span>
-                        </div>
-                    </article>
-                    <!-- HUNGARIAN SILOG -->
-                    <article class="menu-card">
-                        <div class="menu-image">
-                            <img src="../assets/hungariansilog.jpg" alt="Hungarian Silog">
-                        </div>
-                        <div class="menu-info">
-                            <h3>HUNGARIAN SILOG</h3>
-                            <p>A hearty Hungarian sausage served with silog.</p>
-                            <span class="menu-price">₱---</span>
-                        </div>
-                    </article>
-                </div>
-            </section>
+            <?php foreach ($categories as $category): ?>
+                <section class="menu-category <?= $category === 'EXTRAS' ? 'extras-category' : '' ?>">
+                    <div class="menu-category-heading">
+                        <h2><?= htmlspecialchars($category) ?></h2>
+                    </div>
+                    <div class="menu-grid">
+                        <?php if (!empty($products[$category])): ?>
+                            <?php foreach ($products[$category] as $product): ?>
+                                <article class="menu-card">
+                                    <div class="menu-image">
+                                        <img src="../assets/<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
+                                    </div>
+                                    <div class="menu-info">
+                                        <h3><?= htmlspecialchars($product['name']) ?></h3>
+                                        <p><?= htmlspecialchars($product['description']) ?></p>
+                                        <span class="menu-price">₱<?= number_format((float)$product['price'], 2) ?></span>
+                                    </div>
+                                </article>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p>No available products in this category.</p>
+                        <?php endif; ?>
+                    </div>
+                </section>
+            <?php endforeach; ?>
         </div>
     </section>
 </main>
