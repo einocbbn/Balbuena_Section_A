@@ -1,0 +1,128 @@
+.admin-account-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.admin-account-card {
+    padding: 28px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(17, 17, 17, .08);
+}
+
+.admin-account-card-header {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(17, 17, 17, .1);
+}
+
+.admin-account-card-header h2 {
+    margin: 0;
+    color: var(--brown);
+    font-family: var(--heading-font);
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.admin-account-info {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.admin-account-info > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-account-info span {
+    margin-bottom: 6px;
+    color: var(--brown);
+    font-family: var(--heading-font);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .7px;
+}
+
+.admin-account-info strong {
+    color: var(--black);
+    font-family: var(--heading-font);
+    font-size: 16px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.admin-account-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.admin-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-form-group label {
+    margin-bottom: 8px;
+    color: var(--black);
+    font-family: var(--heading-font);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .5px;
+}
+
+.admin-form-group input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 14px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: var(--white);
+    color: var(--black);
+    font-family: var(--body-font);
+    font-size: 14px;
+}
+
+.admin-form-group input:focus {
+    outline: none;
+    border-color: var(--brown);
+}
+
+.admin-form-group small {
+    margin-top: 6px;
+    color: #777;
+    font-size: 12px;
+}
+
+.admin-account-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+}
+
+.admin-account-actions .admin-btn-primary {
+    border: none;
+    cursor: pointer;
+}
+
+@media (max-width: 900px) {
+    .admin-account-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-account-card {
+        padding: 22px;
+    }
+
+    .admin-account-actions {
+        width: 100%;
+    }
+
+    .admin-account-actions .admin-btn-primary {
+        width: 100%;
+    }
+}
