@@ -168,19 +168,44 @@ try {
 
         <?php if (isset($_GET['success'])): ?>
 
-            <div class="admin-success">
+                <div class="admin-success">
 
-                <?php if ($_GET['success'] === 'updated'): ?>
-                    Order status updated successfully.
+                    <?php if ($_GET['success'] === 'updated'): ?>
+                        Order status updated successfully.
 
-                <?php elseif ($_GET['success'] === 'cancelled'): ?>
-                    Order cancelled successfully.
+                    <?php elseif ($_GET['success'] === 'cancelled'): ?>
+                        Order cancelled successfully.
 
-                <?php endif; ?>
+                    <?php elseif ($_GET['success'] === 'deleted'): ?>
+                        Completed order deleted successfully.
 
-            </div>
+                    <?php endif; ?>
 
-        <?php endif; ?>
+                </div>
+
+            <?php endif; ?>
+
+            <?php if (isset($_GET['error'])): ?>
+
+                <div class="admin-error">
+
+                    <?php if ($_GET['error'] === 'delete_not_allowed'): ?>
+                        Only completed orders can be deleted.
+
+                    <?php elseif ($_GET['error'] === 'order_not_found'): ?>
+                        The requested order could not be found.
+
+                    <?php elseif ($_GET['error'] === 'invalid_order'): ?>
+                        Invalid order ID.
+
+                    <?php elseif ($_GET['error'] === 'delete_failed'): ?>
+                        Unable to delete the order right now. Please try again.
+
+                    <?php endif; ?>
+
+                </div>
+
+            <?php endif; ?>
 
         <section class="admin-product-tools">
 
@@ -322,6 +347,15 @@ try {
                                     >
                                         VIEW
                                     </a>
+
+                                    <?php if ($order['status'] === 'Completed'): ?>
+                                        <a
+                                            href="order_delete.php?id=<?= (int) $order['id'] ?>"
+                                            class="admin-action-delete"
+                                        >
+                                            DELETE
+                                        </a>
+                                    <?php endif; ?>
 
                                 </div>
 
