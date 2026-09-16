@@ -454,3 +454,134 @@
         font-size: 35px;
     }
 }
+
+.checkout-payment-section {
+margin-top: 35px;
+padding-top: 30px;
+border-top: 2px solid rgba(150, 75, 0, .12);
+}
+
+.checkout-payment-section h2 {
+margin-bottom: 25px;
+}
+
+.payment-options {
+display: grid;
+gap: 12px;
+}
+
+.payment-option {
+display: flex;
+align-items: center;
+gap: 14px;
+padding: 16px;
+border: 1px solid rgba(150, 75, 0, .22);
+border-radius: 10px;
+background: var(--white);
+cursor: pointer;
+transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.payment-option:hover {
+border-color: var(--brown);
+transform: translateY(-1px);
+}
+
+.payment-option input {
+width: 18px;
+height: 18px;
+margin: 0;
+accent-color: var(--brown);
+flex-shrink: 0;
+}
+
+.payment-option span {
+display: flex;
+flex-direction: column;
+gap: 3px;
+}
+
+.payment-option strong {
+color: var(--brown);
+font-family: var(--heading-font);
+font-size: 16px;
+font-weight: 800;
+}
+
+.payment-option small {
+color: rgba(17, 17, 17, .65);
+font-size: 13px;
+}
+
+.online-payment-section {
+margin-top: 22px;
+padding: 20px;
+border-radius: 10px;
+background: rgba(239, 196, 150, .28);
+}
+
+.payment-instructions {
+margin-bottom: 20px;
+}
+
+.payment-instructions h3 {
+margin: 0 0 8px;
+color: var(--brown);
+font-family: var(--heading-font);
+font-size: 18px;
+font-weight: 800;
+}
+
+.payment-instructions p {
+margin: 0;
+color: var(--brown);
+font-size: 14px;
+line-height: 1.5;
+}
+
+#payment_proof {
+padding: 10px;
+background: var(--white);
+cursor: pointer;
+}
+
+.checkout-upload-note {
+display: block;
+margin-top: 7px;
+color: rgba(17, 17, 17, .6);
+font-size: 12px;
+}
+
+.payment-preview {
+margin-top: 15px;
+}
+
+.payment-preview img {
+display: block;
+width: min(100%, 350px);
+max-height: 300px;
+object-fit: contain;
+border: 1px solid rgba(150, 75, 0, .2);
+border-radius: 8px;
+background: var(--white);
+}
+
+.checkout-field-error {
+display: block;
+margin-top: 6px;
+color: #842029;
+font-size: 12px;
+font-weight: 600;
+}
+
+@media (max-width: 600px) {
+.online-payment-section {
+padding: 16px;
+}
+
+
+.payment-option {
+    padding: 14px;
+}
+
+}

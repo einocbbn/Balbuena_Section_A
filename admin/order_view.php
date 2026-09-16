@@ -23,6 +23,8 @@ try {
             address,
             notes,
             total_amount,
+            payment_method,
+            payment_proof,
             status,
             created_at,
             updated_at
@@ -59,111 +61,107 @@ try {
     $error = 'Unable to load order details right now.';
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
+<!DOCTYPE html>
+
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order #<?= (int) $orderId ?> | BBN Bites Admin</title>
-
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="admin.css">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
 <div class="admin-layout">
 
-    <aside class="admin-sidebar">
+<aside class="admin-sidebar">
 
-        <div class="admin-sidebar-brand">
-            <img src="../assets/logo.png" alt="BBN Bites Logo">
+    <div class="admin-sidebar-brand">
+        <img src="../assets/logo.png" alt="BBN Bites Logo">
 
-            <div>
-                <strong>BBN BITES</strong>
-                <span>ADMIN</span>
-            </div>
+        <div>
+            <strong>BBN BITES</strong>
+            <span>ADMIN</span>
+        </div>
+    </div>
+
+    <nav class="admin-nav">
+
+        <a href="dashboard.php" class="admin-nav-link">
+            <span>▣</span>
+            DASHBOARD
+        </a>
+
+        <a href="products.php" class="admin-nav-link">
+            <span>▤</span>
+            PRODUCTS
+        </a>
+
+        <a href="orders.php" class="admin-nav-link active">
+            <span>▧</span>
+            ORDERS
+        </a>
+
+        <a href="messages.php" class="admin-nav-link">
+            <span>✉</span>
+            MESSAGES
+        </a>
+
+        <a href="account.php" class="admin-nav-link">
+            <span>◉</span>
+            MY ACCOUNT
+        </a>
+
+    </nav>
+
+    <div class="admin-sidebar-bottom">
+
+        <div class="admin-user">
+            <strong>
+                <?= htmlspecialchars($_SESSION['admin_name']) ?>
+            </strong>
+
+            <span>
+                @<?= htmlspecialchars($_SESSION['admin_username']) ?>
+            </span>
         </div>
 
-        <nav class="admin-nav">
+        <a href="logout.php" class="admin-logout">
+            LOGOUT
+        </a>
 
-            <a href="dashboard.php" class="admin-nav-link">
-                <span>▣</span>
-                DASHBOARD
-            </a>
+    </div>
 
-            <a href="products.php" class="admin-nav-link">
-                <span>▤</span>
-                PRODUCTS
-            </a>
+</aside>
 
-            <a href="orders.php" class="admin-nav-link active">
-                <span>▧</span>
-                ORDERS
-            </a>
+<main class="admin-main">
 
-            <a href="messages.php" class="admin-nav-link">
-                <span>✉</span>
-                MESSAGES
-            </a>
+    <header class="admin-topbar">
 
-            <a href="account.php" class="admin-nav-link">
-                <span>◉</span>
-                MY ACCOUNT
-            </a>
-
-        </nav>
-
-        <div class="admin-sidebar-bottom">
-
-            <div class="admin-user">
-                <strong>
-                    <?= htmlspecialchars($_SESSION['admin_name']) ?>
-                </strong>
-
-                <span>
-                    @<?= htmlspecialchars($_SESSION['admin_username']) ?>
-                </span>
-            </div>
-
-            <a href="logout.php" class="admin-logout">
-                LOGOUT
-            </a>
-
+        <div>
+            <p class="admin-eyebrow">ORDER MANAGEMENT</p>
+            <h1>ORDER #<?= (int) $order['id'] ?></h1>
         </div>
 
-    </aside>
+        <a href="orders.php" class="admin-btn-secondary">
+            BACK TO ORDERS
+        </a>
 
-    <main class="admin-main">
+    </header>
 
-        <header class="admin-topbar">
+    <?php if ($error !== ''): ?>
 
-            <div>
-                <p class="admin-eyebrow">ORDER MANAGEMENT</p>
-                <h1>ORDER #<?= (int) $order['id'] ?></h1>
-            </div>
+        <div class="admin-error">
+            <p><?= htmlspecialchars($error) ?></p>
+        </div>
 
-            <a href="orders.php" class="admin-btn-secondary">
-                BACK TO ORDERS
-            </a>
+    <?php else: ?>
 
-        </header>
-
-        <?php if ($error !== ''): ?>
-
-            <div class="admin-error">
-                <p><?= htmlspecialchars($error) ?></p>
-            </div>
-        
         <?php if (isset($_GET['success']) && $_GET['success'] === 'updated'): ?>
 
             <div class="admin-success">
@@ -188,242 +186,293 @@ try {
 
         <?php endif; ?>
 
-        <?php else: ?>
+        <section class="admin-order-summary">
 
-            <section class="admin-order-summary">
+            <div class="admin-order-summary-header">
 
-                <div class="admin-order-summary-header">
+                <div>
+                    <p class="admin-eyebrow">ORDER INFORMATION</p>
 
-                    <div>
-                        <p class="admin-eyebrow">ORDER INFORMATION</p>
-
-                        <h2>
-                            ORDER #<?= (int) $order['id'] ?>
-                        </h2>
-                    </div>
-
-                    <form method="post" action="order_status_update.php?id=<?= (int) $order['id'] ?>" class="admin-order-status-form">
-
-                        <select name="status" required>
-
-                            <?php foreach (['Pending', 'Confirmed', 'Preparing', 'Ready', 'Completed', 'Cancelled'] as $status): ?>
-
-                                <option
-                                    value="<?= htmlspecialchars($status) ?>"
-                                    <?= $order['status'] === $status ? 'selected' : '' ?>
-                                >
-                                    <?= htmlspecialchars($status) ?>
-                                </option>
-
-                            <?php endforeach; ?>
-
-                        </select>
-
-                        <button type="submit" class="admin-btn-primary">
-                            UPDATE STATUS
-                        </button>
-
-                    </form>
-
+                    <h2>
+                        ORDER #<?= (int) $order['id'] ?>
+                    </h2>
                 </div>
 
-                <div class="admin-order-info-grid">
+                <form
+                    method="post"
+                    action="order_status_update.php?id=<?= (int) $order['id'] ?>"
+                    class="admin-order-status-form"
+                >
 
-                    <div class="admin-order-info-item">
+                    <select name="status" required>
 
-                        <span>ORDER DATE</span>
+                        <?php foreach (['Pending', 'Confirmed', 'Preparing', 'Ready', 'Completed', 'Cancelled'] as $status): ?>
 
-                        <strong>
-                            <?= date('M d, Y', strtotime($order['created_at'])) ?>
-                        </strong>
+                            <option
+                                value="<?= htmlspecialchars($status) ?>"
+                                <?= $order['status'] === $status ? 'selected' : '' ?>
+                            >
+                                <?= htmlspecialchars($status) ?>
+                            </option>
 
-                        <small>
-                            <?= date('h:i A', strtotime($order['created_at'])) ?>
-                        </small>
+                        <?php endforeach; ?>
 
-                    </div>
+                    </select>
 
-                    <div class="admin-order-info-item">
+                    <button type="submit" class="admin-btn-primary">
+                        UPDATE STATUS
+                    </button>
 
-                        <span>CUSTOMER</span>
+                </form>
 
-                        <strong>
-                            <?= htmlspecialchars($order['customer_name']) ?>
-                        </strong>
+            </div>
 
-                    </div>
+            <div class="admin-order-info-grid">
 
-                    <div class="admin-order-info-item">
+                <div class="admin-order-info-item">
+                    <span>ORDER DATE</span>
 
-                        <span>CONTACT NUMBER</span>
+                    <strong>
+                        <?= date('M d, Y', strtotime($order['created_at'])) ?>
+                    </strong>
 
-                        <strong>
-                            <?= htmlspecialchars($order['contact_number']) ?>
-                        </strong>
-
-                    </div>
-
-                    <div class="admin-order-info-item">
-
-                        <span>EMAIL</span>
-
-                        <strong>
-                            <?= htmlspecialchars($order['email']) ?>
-                        </strong>
-
-                    </div>
-
+                    <small>
+                        <?= date('h:i A', strtotime($order['created_at'])) ?>
+                    </small>
                 </div>
 
-            </section>
+                <div class="admin-order-info-item">
+                    <span>CUSTOMER</span>
 
-            <section class="admin-order-details-grid">
-
-                <div class="admin-order-items-card">
-
-                    <div class="admin-panel-header">
-
-                        <div>
-                            <p class="admin-eyebrow">PURCHASE</p>
-                            <h2>ORDERED PRODUCTS</h2>
-                        </div>
-
-                        <span class="admin-panel-count">
-                            <?= count($orderItems) ?>
-                        </span>
-
-                    </div>
-
-                    <?php if (empty($orderItems)): ?>
-
-                        <div class="admin-empty">
-                            No products found for this order.
-                        </div>
-
-                    <?php else: ?>
-
-                        <div class="admin-order-items">
-
-                            <?php foreach ($orderItems as $item): ?>
-
-                                <div class="admin-order-item">
-
-                                    <div class="admin-order-item-info">
-
-                                        <strong>
-                                            <?= htmlspecialchars($item['product_name']) ?>
-                                        </strong>
-
-                                        <span>
-                                            ₱<?= number_format((float) $item['price'], 2) ?>
-                                            ×
-                                            <?= (int) $item['quantity'] ?>
-                                        </span>
-
-                                    </div>
-
-                                    <strong class="admin-order-item-subtotal">
-                                        ₱<?= number_format((float) $item['subtotal'], 2) ?>
-                                    </strong>
-
-                                </div>
-
-                            <?php endforeach; ?>
-
-                        </div>
-
-                    <?php endif; ?>
-
-                    <div class="admin-order-total">
-
-                        <span>
-                            TOTAL
-                        </span>
-
-                        <strong>
-                            ₱<?= number_format((float) $order['total_amount'], 2) ?>
-                        </strong>
-
-                    </div>
-
+                    <strong>
+                        <?= htmlspecialchars($order['customer_name']) ?>
+                    </strong>
                 </div>
 
-                <div class="admin-order-customer-card">
+                <div class="admin-order-info-item">
+                    <span>CONTACT NUMBER</span>
 
-                    <div class="admin-panel-header">
+                    <strong>
+                        <?= htmlspecialchars($order['contact_number']) ?>
+                    </strong>
+                </div>
 
-                        <div>
-                            <p class="admin-eyebrow">CUSTOMER</p>
-                            <h2>ORDER DETAILS</h2>
-                        </div>
+                <div class="admin-order-info-item">
+                    <span>EMAIL</span>
 
-                    </div>
+                    <strong>
+                        <?= htmlspecialchars($order['email']) ?>
+                    </strong>
+                </div>
 
-                    <div class="admin-customer-details">
+            </div>
 
-                        <div>
+        </section>
 
-                            <span>NAME</span>
+        <section class="admin-payment-card">
+
+            <div class="admin-panel-header">
+
+                <div>
+                    <p class="admin-eyebrow">PAYMENT</p>
+                    <h2>PAYMENT INFORMATION</h2>
+                </div>
+
+            </div>
+
+            <div class="admin-payment-info">
+
+                <div class="admin-payment-method">
+                    <span>MODE OF PAYMENT</span>
+
+                    <strong>
+                        <?= htmlspecialchars($order['payment_method']) ?>
+                    </strong>
+                </div>
+
+                <?php if ($order['payment_method'] !== 'Cash on Delivery'): ?>
+
+                    <div class="admin-payment-proof">
+
+                        <span>PROOF OF PAYMENT</span>
+
+                        <?php if (!empty($order['payment_proof'])): ?>
+
+                            <a
+                                href="../uploads/payment_proofs/<?= rawurlencode($order['payment_proof']) ?>"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="admin-btn-primary"
+                            >
+                                VIEW PROOF OF PAYMENT
+                            </a>
+
+                        <?php else: ?>
 
                             <strong>
-                                <?= htmlspecialchars($order['customer_name']) ?>
+                                No proof of payment uploaded.
                             </strong>
-
-                        </div>
-
-                        <div>
-
-                            <span>CONTACT</span>
-
-                            <strong>
-                                <?= htmlspecialchars($order['contact_number']) ?>
-                            </strong>
-
-                        </div>
-
-                        <div>
-
-                            <span>EMAIL</span>
-
-                            <strong>
-                                <?= htmlspecialchars($order['email']) ?>
-                            </strong>
-
-                        </div>
-
-                        <div>
-
-                            <span>ADDRESS</span>
-
-                            <strong>
-                                <?= nl2br(htmlspecialchars($order['address'])) ?>
-                            </strong>
-
-                        </div>
-
-                        <?php if (!empty($order['notes'])): ?>
-
-                            <div>
-
-                                <span>NOTES</span>
-
-                                <strong>
-                                    <?= nl2br(htmlspecialchars($order['notes'])) ?>
-                                </strong>
-
-                            </div>
 
                         <?php endif; ?>
 
                     </div>
 
+                <?php else: ?>
+
+                    <div class="admin-payment-proof">
+
+                        <span>PROOF OF PAYMENT</span>
+
+                        <strong>
+                            Not required for Cash on Delivery.
+                        </strong>
+
+                    </div>
+
+                <?php endif; ?>
+
+            </div>
+
+        </section>
+
+        <section class="admin-order-details-grid">
+
+            <div class="admin-order-items-card">
+
+                <div class="admin-panel-header">
+
+                    <div>
+                        <p class="admin-eyebrow">PURCHASE</p>
+                        <h2>ORDERED PRODUCTS</h2>
+                    </div>
+
+                    <span class="admin-panel-count">
+                        <?= count($orderItems) ?>
+                    </span>
+
                 </div>
 
-            </section>
+                <?php if (empty($orderItems)): ?>
 
-        <?php endif; ?>
+                    <div class="admin-empty">
+                        No products found for this order.
+                    </div>
 
-    </main>
+                <?php else: ?>
+
+                    <div class="admin-order-items">
+
+                        <?php foreach ($orderItems as $item): ?>
+
+                            <div class="admin-order-item">
+
+                                <div class="admin-order-item-info">
+
+                                    <strong>
+                                        <?= htmlspecialchars($item['product_name']) ?>
+                                    </strong>
+
+                                    <span>
+                                        ₱<?= number_format((float) $item['price'], 2) ?>
+                                        ×
+                                        <?= (int) $item['quantity'] ?>
+                                    </span>
+
+                                </div>
+
+                                <strong class="admin-order-item-subtotal">
+                                    ₱<?= number_format((float) $item['subtotal'], 2) ?>
+                                </strong>
+
+                            </div>
+
+                        <?php endforeach; ?>
+
+                    </div>
+
+                <?php endif; ?>
+
+                <div class="admin-order-total">
+
+                    <span>
+                        TOTAL
+                    </span>
+
+                    <strong>
+                        ₱<?= number_format((float) $order['total_amount'], 2) ?>
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <div class="admin-order-customer-card">
+
+                <div class="admin-panel-header">
+
+                    <div>
+                        <p class="admin-eyebrow">CUSTOMER</p>
+                        <h2>ORDER DETAILS</h2>
+                    </div>
+
+                </div>
+
+                <div class="admin-customer-details">
+
+                    <div>
+                        <span>NAME</span>
+
+                        <strong>
+                            <?= htmlspecialchars($order['customer_name']) ?>
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>CONTACT</span>
+
+                        <strong>
+                            <?= htmlspecialchars($order['contact_number']) ?>
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>EMAIL</span>
+
+                        <strong>
+                            <?= htmlspecialchars($order['email']) ?>
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>ADDRESS</span>
+
+                        <strong>
+                            <?= nl2br(htmlspecialchars($order['address'])) ?>
+                        </strong>
+                    </div>
+
+                    <?php if (!empty($order['notes'])): ?>
+
+                        <div>
+                            <span>NOTES</span>
+
+                            <strong>
+                                <?= nl2br(htmlspecialchars($order['notes'])) ?>
+                            </strong>
+                        </div>
+
+                    <?php endif; ?>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    <?php endif; ?>
+
+</main>
+```
 
 </div>
 

@@ -25,6 +25,7 @@ try {
             email,
             address,
             total_amount,
+            payment_method,
             status,
             created_at
         FROM orders
@@ -261,6 +262,7 @@ try {
                         <th>CUSTOMER</th>
                         <th>CONTACT</th>
                         <th>TOTAL</th>
+                        <th>PAYMENT</th>
                         <th>STATUS</th>
                         <th>DATE</th>
                         <th>ACTION</th>
@@ -272,7 +274,7 @@ try {
                 <?php if (empty($orders)): ?>
 
                     <tr>
-                        <td colspan="7" class="admin-empty">
+                        <td colspan="8" class="admin-empty">
                             No orders found.
                         </td>
                     </tr>
@@ -318,6 +320,12 @@ try {
                             <td>
                                 <strong>
                                     ₱<?= number_format((float) $order['total_amount'], 2) ?>
+                                </strong>
+                            </td>
+
+                            <td>
+                                <strong>
+                                    <?= htmlspecialchars($order['payment_method']) ?>
                                 </strong>
                             </td>
 

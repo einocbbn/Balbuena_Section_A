@@ -1386,3 +1386,52 @@
         align-items: stretch;
     }
 }
+
+.admin-payment-card {
+margin-top: 25px;
+margin-bottom: 25px;
+padding: 25px;
+border-radius: 14px;
+background: var(--white);
+}
+
+.admin-payment-info {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 25px;
+margin-top: 20px;
+}
+
+.admin-payment-method,
+.admin-payment-proof {
+display: flex;
+flex-direction: column;
+gap: 8px;
+}
+
+.admin-payment-method > span,
+.admin-payment-proof > span {
+color: rgba(17, 17, 17, .55);
+font-family: var(--heading-font);
+font-size: 12px;
+font-weight: 800;
+letter-spacing: .8px;
+}
+
+.admin-payment-method strong,
+.admin-payment-proof strong {
+color: var(--brown);
+font-size: 16px;
+}
+
+.admin-payment-proof .admin-btn-primary {
+width: fit-content;
+text-decoration: none;
+}
+
+@media (max-width: 700px) {
+.admin-payment-info {
+grid-template-columns: 1fr;
+gap: 20px;
+}
+}
