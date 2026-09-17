@@ -377,8 +377,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             <div class="payment-instructions">
                                 <h3>PROOF OF PAYMENT</h3>
-                                <h3>GCASH: 09618048468
-                                    MAYA: 09618049468</h3>
+                                <h3>BANK DETAILS</h3>
+                                <h2>GCASH: 09618048468
+                                    MAYA: 09618049468</h2>
                                 <p> 
                                     Please upload a clear screenshot
                                     or photo of your payment receipt.
