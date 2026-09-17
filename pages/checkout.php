@@ -245,7 +245,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <section class="checkout-page">
         <div class="container">
 
-```
         <div class="checkout-title">
             <p class="checkout-eyebrow">BBN BITES</p>
             <h1>CHECKOUT</h1>
